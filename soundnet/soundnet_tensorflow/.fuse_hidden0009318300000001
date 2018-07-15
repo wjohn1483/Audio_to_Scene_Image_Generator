@@ -1,0 +1,29 @@
+#!/bin/bash
+
+
+if [ -z "$1" ]; then
+    echo "Need to specify place or object"
+    exit
+fi
+
+place_or_object=$1
+file_dir=/mnt/SoundNet_dataset/mp3_files/mp3_files_${place_or_object}/
+file_list=./mp3_list.txt
+segment_dir=./segments/
+output_dir=/mnt/SoundNet_dataset/mp3_soundnet_feat/mp3_soundnet_feat_${place_or_object}/
+
+if [ ! -d "$segment" ]; then
+    mkdir "$segment"
+    echo "I'm here"
+fi
+
+if [ ! -d "$output_dir" ]; then
+    echo "I"m here in output
+    mkdir "$output_dir"
+fi
+
+# TODO: split and use segment
+ls $file_dir > $file_list
+
+CUDA_VISIBLE_DEVICES=0 python ./extract_feat.py -m 15 -x 16 -s -p extract -o $output_dir -t ./demo.txt
+
