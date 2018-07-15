@@ -16,11 +16,10 @@ if [ ! -f $soundnet_mp3_tar_filename ]; then
     wget $soundnet_mp3_url
 fi
 
-if [ ! -d $soundnet_frame_directory]; then
+if [ ! -d $soundnet_frame_directory ]; then
     wget $soundnet_frames_url
+    tar zxvf $soundnet_frames_tar_filename
 fi
-
-tar zxvf $soundnet_frames_tar_filename
 
 # Extract sound files from compressed file
 if [ ! -d $mp3_file_dir ]; then
