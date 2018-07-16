@@ -45,5 +45,6 @@ do
     parent_dir=`pwd`
     cd ./soundnet_tensorflow/
     bash extract_feat_given_folder.sh $parent_dir/$mp3_file_dir/mp3_files_${var}_keywords $parent_dir/$mp3_soundnet_feat_dir/mp3_soundnet_feat_${var}_keywords
+    cd ..
 done
 

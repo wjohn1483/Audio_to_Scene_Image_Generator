@@ -34,7 +34,7 @@ split -l 5 $file_list $segment_dir/segment
 for f in `ls $segment_dir/*`
 do
     echo $f
-    CUDA_VISIBLE_DEVICES=0 python3 ./extract_feat.py -c 1 -m 18 -x 19 -s -p extract -o $output_dir -t $f
+    CUDA_VISIBLE_DEVICES=0 python3 ./extract_feat.py -c 1 -m 18 -x 19 -s -p extract -o $output_dir/ -t $f
 done
 
 
