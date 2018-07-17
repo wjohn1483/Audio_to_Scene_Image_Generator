@@ -1,6 +1,6 @@
 import tensorflow as tf
 import numpy as np
-import models.model_pretrain_image_vae_with_conditional_vae_gan as model
+import models.model_conditional_gan_with_hinge_loss_spectral_norm_projection_discriminator_auxiliary_classifier as model
 import argparse
 import pickle
 from os.path import join
