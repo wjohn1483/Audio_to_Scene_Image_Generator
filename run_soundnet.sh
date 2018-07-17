@@ -37,19 +37,14 @@ elif [ "$1" = "test" ]; then
         mkdir -p $images_generated_path
     fi
     rm -r $images_generated_path/*
-    for var in $(echo $dir | rev | cut -d '/' -f 1 | rev | sed "s/_/ /g")
+    class_list=("plane" "speedboat" "piano" "dam" "baseball" "soccer" "guitar" "drum" "dog")
+    for var in ${class_list[*]};
     do
-        if [ "$var" = "Models" ] || [ "$var" = "Model" ] || [ "$var" = "keywords" ] || [ "$var" = "multi" ]; then
-            continue
-        elif [ "$var" = "conditional" ]; then
-            break
-        else
-            echo "Generating $var images..."
-            mkdir $images_generated_path/$var
-            python ./create_testdata_for_soundnet.py --list_path $filelist_dir/${testing_type}_data_${var}_keywords.txt --feat_path $feat_dir/mp3_soundnet_feat_${var}_keywords_18/
-            CUDA_VISIBLE_DEVICES=0 python ./generate_images.py --n_images=1 --gf_dim=$gf_dim --df_dim=$df_dim --t_dim=$t_dim --z_dim=$z_dim --num_class=$num_class --caption_vector_length=$caption_vector_length --model_path=$dir/model_after_${dataset}_epoch_${testing_epoch}.ckpt --caption_thought_vectors=./Data/soundnet_testing_vectors.hdf5
-            mv $images_generated_path/*.jpg $images_generated_path/$var
-        fi
+        echo "Generating $var images..."
+        mkdir $images_generated_path/$var
+        python ./create_testdata_for_soundnet.py --list_path $filelist_dir/${testing_type}_data_${var}_keywords.txt --feat_path $feat_dir/mp3_soundnet_feat_${var}_keywords_18/
+        CUDA_VISIBLE_DEVICES=0 python ./generate_images.py --n_images=1 --gf_dim=$gf_dim --df_dim=$df_dim --t_dim=$t_dim --z_dim=$z_dim --num_class=$num_class --caption_vector_length=$caption_vector_length --model_path=$dir/model_after_${dataset}_epoch_${testing_epoch}.ckpt --caption_thought_vectors=./Data/soundnet_testing_vectors.hdf5
+        mv $images_generated_path/*.jpg $images_generated_path/$var
     done
 else
     echo 'The argument must be "train" or "test"'
